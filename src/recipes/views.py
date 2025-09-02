@@ -4,3 +4,7 @@ from django.http import HttpResponse, HttpRequest
 
 def home(request: HttpRequest) -> HttpResponse:
     return render(request, "recipes/pages/home.html")
+
+
+def recipe(request: HttpRequest, recipe_id: int) -> HttpResponse:
+    return render(request, "recipes/pages/recipe-view.html")
