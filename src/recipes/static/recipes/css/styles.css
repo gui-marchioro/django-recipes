@@ -253,6 +253,26 @@ h6 {
     padding: var(--spacing-gutter-medium);
 }
 
+.preparation-steps h1,
+.preparation-steps h2,
+.preparation-steps h3,
+.preparation-steps h4,
+.preparation-steps h5,
+.preparation-steps h6,
+.preparation-steps p,
+.preparation-steps ol,
+.preparation-steps ul,
+.preparation-steps pre {
+    margin: 2rem 0;
+    line-height: 2.0;
+}
+
+.preparation-steps ol,
+.preparation-steps ul {
+    margin: 2rem;
+    padding: 0 2rem;
+}
+
 .main-footer {
     display: flex;
     align-items: center;
@@ -270,4 +290,8 @@ h6 {
 
 .main-footer a:hover {
     filter: brightness(.8);
+}
+
+.center {
+    text-align: center;
 }

@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_list_or_404
+from django.shortcuts import render, get_list_or_404, get_object_or_404
 from django.http import HttpResponse, HttpRequest, Http404
 from .models import Recipe
 
@@ -23,8 +23,7 @@ def category(request: HttpRequest, category_id: int) -> HttpResponse:
 
 
 def recipe(request: HttpRequest, recipe_id: int) -> HttpResponse:
-    recipe = Recipe.objects.filter(
-        pk=recipe_id, is_published=True).first()
+    recipe = get_object_or_404(Recipe, pk=recipe_id, is_published=True)
     return render(request, "recipes/pages/recipe-view.html", context={
         "recipe": recipe,
         "is_detail_page": True,
