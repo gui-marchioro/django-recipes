@@ -1,6 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_list_or_404
 from django.http import HttpResponse, HttpRequest, Http404
-from utils.recipes.factory import make_recipe
 from .models import Recipe
 
 
@@ -12,13 +11,9 @@ def home(request: HttpRequest) -> HttpResponse:
 
 
 def category(request: HttpRequest, category_id: int) -> HttpResponse:
-    recipes = Recipe.objects.filter(
-        category__id=category_id, is_published=True
-    ).order_by('-id')
-    recipe = recipes.first()
-    if not recipe:
-        raise Http404('Category not found')
-    category = recipe.category
+    recipes = get_list_or_404(Recipe.objects.filter(
+        category__id=category_id, is_published=True).order_by('-id'))
+    category = recipes[0].category
     if not category:
         raise Http404('Category not found')
     return render(request, 'recipes/pages/category.html', context={
@@ -28,7 +23,9 @@ def category(request: HttpRequest, category_id: int) -> HttpResponse:
 
 
 def recipe(request: HttpRequest, recipe_id: int) -> HttpResponse:
+    recipe = Recipe.objects.filter(
+        pk=recipe_id, is_published=True).first()
     return render(request, "recipes/pages/recipe-view.html", context={
-        "recipe": make_recipe(),
+        "recipe": recipe,
         "is_detail_page": True,
     })
