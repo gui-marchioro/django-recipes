@@ -3,5 +3,10 @@ from .forms import RegisterForm
 
 
 def register_view(request):
-    form = RegisterForm()
-    return render(request, 'authors/pages/register.html', {'form': form})
+    if request.POST:
+        form = RegisterForm(request.POST)
+    else:
+        form = RegisterForm()
+    return render(request, 'authors/pages/register.html', {
+        'form': form,
+    })
